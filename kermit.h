@@ -106,7 +106,7 @@ void sceKermitMemory_driver_90B662D0(u8 *data, u32 data_size);
 #define KERMIT_CMD_INIT_AUDIO_IN        0x0
 #define KERMIT_CMD_OUTPUT_1             0x1
 #define KERMIT_CMD_OUTPUT_2             0x2
-#define KERMIT_CMD_SUSPEND              0x3
+#define KERMIT_CMD_SUSPEND_AUDIO        0x3
 #define KERMIT_CMD_RESUME               0x4
 
 /* kermit KERMIT_MODE_ME commands */
@@ -150,7 +150,7 @@ void sceKermitMemory_driver_90B662D0(u8 *data, u32 data_size);
 #define KERMIT_CMD_INET_RECV_FROM               0x1D
 #define KERMIT_CMD_INET_SENDTO_INTERNAL         0x1E
 #define KERMIT_CMD_INET_SOIOCTL                 0x1F
-#define KERMIT_CMD_SUSPEND                      0x20
+#define KERMIT_CMD_SUSPEND_WLAN                 0x20
 #define KERMIT_CMD_SET_WOL_PARAM                0x22
 #define KERMIT_CMD_GET_WOL_INFO                 0x23
 #define KERMIT_CMD_SET_HOST_DISCOVER            0x24

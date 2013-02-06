@@ -206,3 +206,66 @@ u64 KermitIoDread(u32 kermitDirId, SceIoDirent *dir, int cmd_mode )
 	return resp;
 }
 
+u64 kermit_msfs_devctl(const char *dev, unsigned int cmd, void *indata, int inlen, void *outdata, int outlen)
+{
+    u8 buf[128];
+    u64 resp;
+    void *alignedBuf = ALIGN_64((u32)buf + 63);
+    sceKernelDcacheInvalidateRange(alignedBuf, 0x40);
+    
+    KermitPacket *packet = KERMIT_PACKET((u32)alignedBuf);
+
+
+    const u32 max = 10;     // Enough for some device size ..
+    u8 *buf_ = (u8*)0xAA124000;  // using flashfs kermit read buffer (works just as good as msfs's one)
+    u8 *buf_2 = (u8*)((u32)buf_ + max);
+    u8 *buf_3 = (u8*)((u32)buf_ + 0x100);   // Keep 0x100 buffer bytes for indata
+
+    strcpy(buf_, dev);
+    memcpy(buf_2, indata, inlen);
+    memset(buf_3,0,outlen);
+
+
+    // kermit cmd
+    *((u32*)((u32)packet+0x00)) = KERMIT_CMD_DEVCTL;
+
+
+    u32 argc = 0;
+    
+    // Prepare to send and set device's buf_ as 1st arg
+    _sceKermitMemory_driver_AAF047AC(packet, argc, buf_, strlen(buf_) + 1, KERMIT_INPUT_MODE);
+    
+    // 2nd arg
+    *((u32*)((u32)packet+0x18)) = cmd;
+    argc = 2;
+    
+    // Prepare to send and set indata's buf_2 as 3rd arg
+    _sceKermitMemory_driver_AAF047AC(packet, argc, buf_2, inlen, KERMIT_INPUT_MODE);
+
+    // 4th arg
+    *((u32*)((u32)packet+0x28)) = inlen;
+    argc = 4;
+    
+    // Prepare to receive and set outdata's buf_3 as 5th arg
+    _sceKermitMemory_driver_AAF047AC(packet, argc, buf_3, outlen, KERMIT_OUTPUT_MODE);
+
+    // 6th arg
+    *((u32*)((u32)packet+0x38)) = outlen;
+
+
+
+    argc = 6;
+    _sceKermit_driver_4F75AA05(packet, KERMIT_MODE_MSFS, KERMIT_CMD_DEVCTL, argc, KERMIT_CALLBACK_DISABLE, &resp);
+    
+    
+
+    // Receive outdata
+    _sceKermitMemory_driver_90B662D0(buf_3, outlen);
+    
+    memcpy(outdata, buf_3, outlen);
+    
+    
+    
+    return resp;
+}
+
