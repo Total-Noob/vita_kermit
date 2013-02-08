@@ -219,11 +219,11 @@ u64 kermit_msfs_devctl(const char *dev, unsigned int cmd, void *indata, int inle
     const u32 max = 10;     // Enough for some device size ..
     u8 *buf_ = (u8*)0xAA124000;  // using flashfs kermit read buffer (works just as good as msfs's one)
     u8 *buf_2 = (u8*)((u32)buf_ + max);
-    u8 *buf_3 = (u8*)((u32)buf_ + 0x100);   // Keep 0x100 buffer bytes for indata
+    u8 *buf_3 = (u8*)((u32)buf_ + 0x100);   // Keep 0x100(-10 .. lol) buffer bytes for indata
 
     strcpy(buf_, dev);
     memcpy(buf_2, indata, inlen);
-    memset(buf_3,0,outlen);
+    memset(buf_3, 0, outlen);
 
 
     // kermit cmd

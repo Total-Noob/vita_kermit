@@ -9,7 +9,7 @@ typedef struct KermitPacket_
     u32 unk_C;          //0xC
 } KermitPacket;
 
-#define KERMIT_MAX_ARGC     (13)
+#define KERMIT_MAX_ARGC     (14)
 
 /*
     Issue a command to kermit.
