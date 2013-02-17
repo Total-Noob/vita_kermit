@@ -73,13 +73,14 @@ void sceKermitMemory_driver_90B662D0(u8 *data, u32 data_size);
 #define KERMIT_CMD_AUDIO_ROUTING            (0x3)
 #define KERMIT_CMD_GET_CAMERA_DIRECTION     (0x5)
 #define KERMIT_CMD_GET_IDPSC_ENABLE         (0x6)
-#define KERMIT_CMD_sub_000028B0             (0x7)
-#define KERMIT_CMD_434D0081                 (0x8)
-#define KERMIT_CMD_AA2029EC                 (0x9)
-#define KERMIT_CMD_910D9C1A                 (0xA)
+#define KERMIT_CMD_DISABLE_MULTITASKING     (0x7)
+#define KERMIT_CMD_ERROR_EXIT               (0x8)
+#define KERMIT_CMD_ENABLE_MULTITASKING      (0x9)
+#define KERMIT_CMD_RESUME_DEVICE            (0xA)
 #define KERMIT_CMD_REQUEST_SUSPEND          (0xB)
 #define KERMIT_CMD_IS_FIRST_BOOT            (0xC)
 #define KERMIT_CMD_GET_PREFIX_SSID          (0xD)
+#define KERMIT_CMD_SET_PS_BUTTON_STATE      (0x10)
 
 /* kermit KERMIT_MODE_MSFS commands */
 #define KERMIT_CMD_INIT_MS              (0x0)
