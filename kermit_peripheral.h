@@ -6,7 +6,7 @@
  * Allows / Prevents the PsButton to minimize pspemu
  *
  * @param int activate 1 to allow, 0 to prevent
- * @return int 0 on success, negative on error
+ * @return u32 0 on success, negative on error
  *
  */
 u32 sceKermitPeripheralSetPsButtonState(int activate);
